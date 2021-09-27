@@ -1,2 +1,0 @@
-#!/bin/bash
-cat iacta & tail -1 iacta
