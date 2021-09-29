@@ -14,6 +14,7 @@
 ## Directories
 ### 0x00-shell_basics
 Directory with basic Shell data.
+
 Commands used:
 - `cd`
 - `ls`
@@ -32,6 +33,7 @@ Commands used:
 
 ### 0x01-shell_permissions
 Directory with Shell permissions scripts.
+
 Commands used:
 - `chmod`
 - `sudo`
@@ -47,6 +49,7 @@ Commands used:
 
 ### 0x02-shell_redirections
 Directory with Shell, I/O Redirections and filters.
+
 Commands used:
 - `echo`
 - `cat`
@@ -64,6 +67,7 @@ Commands used:
 
 ### 0x03-shell_variables_expansions
 Directory with Shell, init files, variables and expansions.
+
 Commands used:
 - `printenv`
 - `set`
