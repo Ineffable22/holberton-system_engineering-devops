@@ -5,5 +5,5 @@
 # Where only the part of the name after the first dash is displayed
 for ls in *
 do
-    echo "$ls" | cut -d '-' -f2
+    echo "$ls" | rev | cut -d '-' -f1 | rev
 done
