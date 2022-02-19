@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # script and killing it with ctrl+c.
-echo "$$" > /var/run/holbertonscript.pid
-trap "echo 'I hate the kill command'; rm -rf /var/run/holbertonscript.pid; exit" SIGTERM
+echo "$$" > /var/run/myscript.pid
+trap "echo 'I hate the kill command'; rm -rf /var/run/myscript.pid; exit" SIGTERM
 trap "echo 'Y U no love me?!'" SIGINT
-trap "rm -rf /var/run/holbertonscript.pid; exit" SIGQUIT
+trap "rm -rf /var/run/myscript.pid; exit" SIGQUIT
 while ((1))
 do
     echo "To infinity and beyond"
