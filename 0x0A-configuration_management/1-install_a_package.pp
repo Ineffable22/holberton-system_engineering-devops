@@ -3,5 +3,5 @@
 package { 'puppet-lint':
   ensure   => '2.5.0',
   provider => 'gem',
-  require  => 'https://rubygems.org',
+  source  => 'https://rubygems.org',
 }
