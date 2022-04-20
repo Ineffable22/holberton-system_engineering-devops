@@ -5,7 +5,7 @@ sudo apt -y update
 sudo apt -y install nginx
 sudo chown -R ubuntu /var/www
 echo "Hello World" > /var/www/html/index.nginx-debian.html
-echo "Ceci n'est pas une page" > /var/www/html/error_simple.html
+echo "Ceci n'est pas une page" > /var/www/html/error_404.html
 sudo sed -i "s/server_name _;/server_name _;\n\trewrite ^/redirect_me https://www.youtube.com/watch?v=hdZUCjAQaGw permanent;/" /etc/nginx/sites-available/default
 sudo sed -i "s/^server\s{/server {\n\terror_page 404 \/error_404.html;/1" /etc/nginx/sites-available/default
 sudo service nginx restart
