@@ -33,10 +33,6 @@ file_line { 'add_header':
   require => Package['nginx'],
 }
 
-file { '/var/www/html/index.html':
-  content => 'Hello World',
-}
-
 service { 'nginx':
   ensure  => running,
   require => Package['nginx'],
