@@ -17,10 +17,6 @@ package { 'nginx':
   require => Exec['apt-get-upgrade'],
 }
 
-package { 'nginx':
-  ensure => installed,
-}
-
 file_line { 'redirection':
   ensure  => 'present',
   path    => '/etc/nginx/sites-available/default',
