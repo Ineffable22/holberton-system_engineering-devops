@@ -8,15 +8,6 @@ package { 'nginx':
   require => Exec['apt-get-update'],
 }
 
-exec { 'apt-get-upgrade':
-  command => '/usr/bin/apt-get upgrade',
-}
-
-package { 'nginx':
-  ensure  => installed,
-  require => Exec['apt-get-upgrade'],
-}
-
 file_line { 'redirection':
   ensure => 'present',
   path   => '/etc/nginx/sites-available/default',
