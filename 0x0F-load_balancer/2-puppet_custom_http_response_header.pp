@@ -25,14 +25,14 @@ package { 'nginx':
 file_line { 'redirection':
   ensure => 'present',
   path   => '/etc/nginx/sites-available/default',
-  after  => 'server_name _;',
+  after  => 'server_name _',
   line   => 'rewrite ^/redirect_me https://www.youtube.com/watch?v=hdZUCjAQaGw permanent;',
 }
 
 file_line { 'add_header':
   ensure => 'present',
   path   => '/etc/nginx/sites-available/default',
-  after  => 'server;',
+  after  => 'server {',
   line   => "add_header X-Served-By ${HOSTNAME};",
 }
 
