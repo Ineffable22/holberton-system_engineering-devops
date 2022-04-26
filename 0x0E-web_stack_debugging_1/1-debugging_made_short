@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Make it sweet and short
+sudo sed -i 's/8080/80/g' /etc/nginx/sites-enabled/default
+sudo pkill -1 nginx
