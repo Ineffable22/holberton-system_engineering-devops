@@ -2,12 +2,6 @@
 exec { 'apt-update':
   provider => shell,
   command  => 'sudo apt -y update',
-  before   => Exec['apt-upgrade'],
-}
-
-exec { 'apt-upgrade':
-  provider => shell,
-  command  => 'sudo apt -y upgrade',
   before   => Exec['install_nginx'],
 }
 
