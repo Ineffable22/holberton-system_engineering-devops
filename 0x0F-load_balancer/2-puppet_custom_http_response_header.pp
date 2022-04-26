@@ -1,30 +1,26 @@
 # Add a custom HTTP header with Puppet
-exec { 'apt-get-update':
-  command => 'sudo /usr/bin/apt-get update',
+exec { 'apt-update':
+  provider => shell,
+  command  => 'sudo apt -y update',
+  before   => Exec['apt-upgrade'],
 }
 
-package { 'nginx':
-  ensure  => installed,
-  require => Exec['apt-get-update'],
+exec { 'apt-upgrade':
+  provider => shell,
+  command  => 'sudo apt -y upgrade',
+  before   => Exec['install_nginx'],
 }
 
-file_line { 'redirection':
-  ensure => 'present',
-  path   => '/etc/nginx/sites-available/default',
-  after  => 'server_name _',
-  line   => 'rewrite ^/redirect_me https://www.youtube.com/watch?v=hdZUCjAQaGw permanent;',
+exec { 'install_nginx':
+  provider => shell,
+  command  => 'sudo apt -y install nginx',
+  before   => Exec['add_header'],
 }
 
-file_line { 'add_header':
-  ensure => 'present',
-  path   => '/etc/nginx/sites-available/default',
-  after  => 'listen 80 default_server;',
-  line   => 'add_header X-Served-By $HOSTNAME;',
-}
-
-service { 'nginx':
-  ensure  => running,
-  require => Package['nginx'],
+exec { 'add_header':
+  provider => 'shell',
+  command  => 'sudo sed -i "s/^server\s{/server {\n\tadd_header X-Served-By $HOSTNAME;/1" /etc/nginx/sites-available/default',
+  before   => Exec['restart_nginx_service'],
 }
 
 exec { 'restart_nginx_service':
