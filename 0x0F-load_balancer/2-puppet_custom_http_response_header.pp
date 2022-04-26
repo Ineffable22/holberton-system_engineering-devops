@@ -9,7 +9,7 @@ package { 'nginx':
 }
 
 exec { 'apt-get-upgrade':
-  command => '/usr/bin/apt-get update',
+  command => '/usr/bin/apt-get upgrade',
 }
 
 package { 'nginx':
@@ -21,19 +21,20 @@ package { 'nginx':
   ensure => installed,
 }
 
-
 file_line { 'redirection':
-  ensure => 'present',
-  path   => '/etc/nginx/sites-available/default',
-  after  => 'server_name _',
-  line   => 'rewrite ^/redirect_me https://www.youtube.com/watch?v=hdZUCjAQaGw permanent;',
+  ensure  => 'present',
+  path    => '/etc/nginx/sites-available/default',
+  after   => 'server_name _',
+  line    => 'rewrite ^/redirect_me https://www.youtube.com/watch?v=hdZUCjAQaGw permanent;',
+  require => Package['nginx'],
 }
 
 file_line { 'add_header':
-  ensure => 'present',
-  path   => '/etc/nginx/sites-available/default',
-  after  => 'server {',
-  line   => "add_header X-Served-By ${HOSTNAME};",
+  ensure  => 'present',
+  path    => '/etc/nginx/sites-available/default',
+  after   => 'server {',
+  line    => 'add_header X-Served-By ${HOSTNAME};',
+  require => Package['nginx'],
 }
 
 file { '/var/www/html/index.html':
