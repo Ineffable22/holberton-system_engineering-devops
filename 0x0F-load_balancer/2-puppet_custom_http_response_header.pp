@@ -1,6 +1,6 @@
 # Add a custom HTTP header with Puppet
 exec { 'apt-get-update':
-  command => '/usr/bin/apt-get update',
+  command => 'sudo /usr/bin/apt-get update',
 }
 
 package { 'nginx':
@@ -15,10 +15,6 @@ file_line { 'redirection':
   line   => 'rewrite ^/redirect_me https://www.youtube.com/watch?v=hdZUCjAQaGw permanent;',
 }
 
-file { '/var/www/html/index.html':
-  content => 'Hello World',
-}
-
 file_line { 'add_header':
   ensure => 'present',
   path   => '/etc/nginx/sites-available/default',
@@ -29,4 +25,9 @@ file_line { 'add_header':
 service { 'nginx':
   ensure  => running,
   require => Package['nginx'],
+}
+
+exec { 'restart_nginx_service':
+  provider => 'shell',
+  command  => 'sudo service nginx restart',
 }
