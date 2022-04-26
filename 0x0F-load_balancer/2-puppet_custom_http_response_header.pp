@@ -22,15 +22,17 @@ file_line { 'redirection':
   path    => '/etc/nginx/sites-available/default',
   after   => 'server_name _',
   line    => 'rewrite ^/redirect_me https://www.youtube.com/watch?v=hdZUCjAQaGw permanent;',
-  require => Package['nginx'],
+}
+
+file { '/var/www/html/index.html':
+  content => 'Hello World',
 }
 
 file_line { 'add_header':
-  ensure  => 'present',
-  path    => '/etc/nginx/sites-available/default',
-  after   => 'server {',
-  line    => 'add_header X-Served-By $HOSTNAME;',
-  require => Package['nginx'],
+  ensure => 'present',
+  path   => '/etc/nginx/sites-available/default',
+  after  => 'listen 80 default_server;',
+  line   => 'add_header X-Served-By $HOSTNAME;',
 }
 
 service { 'nginx':
