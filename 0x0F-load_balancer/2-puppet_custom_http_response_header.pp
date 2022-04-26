@@ -8,6 +8,15 @@ package { 'nginx':
   require => Exec['apt-get-update'],
 }
 
+exec { 'apt-get-upgrade':
+  command => '/usr/bin/apt-get upgrade',
+}
+
+package { 'nginx':
+  ensure  => installed,
+  require => Exec['apt-get-upgrade'],
+}
+
 file_line { 'redirection':
   ensure  => 'present',
   path    => '/etc/nginx/sites-available/default',
@@ -20,7 +29,7 @@ file_line { 'add_header':
   ensure  => 'present',
   path    => '/etc/nginx/sites-available/default',
   after   => 'server {',
-  line    => 'add_header X-Served-By ${HOSTNAME};',
+  line    => 'add_header X-Served-By $HOSTNAME;',
   require => Package['nginx'],
 }
 
