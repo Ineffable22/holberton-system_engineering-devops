@@ -1,16 +1,20 @@
 #!/usr/bin/env bash
 # Configure your domain zone so that the subdomain www points to your load-balancer IP (lb-01). Let’s also add other subdomains to make our life easier, and write a Bash script that will display information about subdomains.
 
-if [ "$#" -eq 2 ]; then
-    www="$(dig "$2.$1" | awk "/A\t[0-9]/" | tr "\t " "~" | cut -d "~" -f 5-11)"
-    echo "The subdomain $2 is a A record and points to $www"
-elif [ "$#" -eq 1 ]; then
-    www="$(dig "www.$1" | awk "/A\t[0-9]/" | tr "\t " "~" | cut -d "~" -f 5-11)"
-    lb="$(dig "lb-01.$1" | awk "/A\t[0-9]/" | tr "\t " "~" | cut -d "~" -f 5-11)"
-    w1="$(dig "web-01.$1" | awk "/A\t[0-9]/" | tr "\t " "~" | cut -d "~" -f 5-11)"
-    w2="$(dig "web-02.$1" | awk "/A\t[0-9]/" | tr "\t " "~" | cut -d "~" -f 5-11)"
-    echo "The subdomain www is a A record and points to $www"
-    echo "The subdomain lb-01 is a A record and points to $lb"
-    echo "The subdomain web-01 is a A record and points to $w1"
-    echo "The subdomain web-02 is a A record and points to $w2"
-fi
+info () {
+    if [ "${#}" -eq 2 ]; then
+	www="$(dig "${2}.${1}" | awk "/A\t[0-9]/" | tr "\t " "~" | cut -d "~" -f 5-11)"
+	echo "The subdomain ${2} is a A record and points to ${www}"
+    elif [ "${#}" -eq 1 ]; then
+	www="$(dig "www.${1}" | awk "/A\t[0-9]/" | tr "\t " "~" | cut -d "~" -f 5-11)"
+	lb="$(dig "lb-01.${1}" | awk "/A\t[0-9]/" | tr "\t " "~" | cut -d "~" -f 5-11)"
+	w1="$(dig "web-01.${1}" | awk "/A\t[0-9]/" | tr "\t " "~" | cut -d "~" -f 5-11)"
+	w2="$(dig "web-02.${1}" | awk "/A\t[0-9]/" | tr "\t " "~" | cut -d "~" -f 5-11)"
+	echo "The subdomain www is a A record and points to ${www}"
+	echo "The subdomain lb-01 is a A record and points to ${lb}"
+	echo "The subdomain web-01 is a A record and points to ${w1}"
+	echo "The subdomain web-02 is a A record and points to ${w2}"
+    fi
+}
+
+info $1 $2
