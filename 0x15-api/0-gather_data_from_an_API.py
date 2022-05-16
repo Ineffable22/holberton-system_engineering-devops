@@ -13,16 +13,17 @@ if __name__ == '__main__':
     todo = requests.get('https://jsonplaceholder.typicode.com/todos')
     user = requests.get('https://jsonplaceholder.typicode.com/users/{}'
                         .format(ID))
+    name = user.json().get('name')
     tasks = 0
     true = 0
     tittles = []
     for list_ in todo.json():
-        if str(list_["userId"]) == ID:
+        if list_.get('userId') == int(ID):
             tasks += 1
-            if (list_["completed"]) is True:
+            if (list_.get('completed')) is True:
                 true += 1
-                tittles.append(list_['title'])
+                tittles.append(list_.get('title'))
     print("Employee {} is done with tasks({}/{}):"
-          .format(user.json().get('name'), true, tasks))
+          .format(name, true, tasks))
     for tittle in tittles:
         print("\t " + tittle)
