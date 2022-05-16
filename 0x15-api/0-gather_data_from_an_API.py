@@ -21,7 +21,7 @@ if __name__ == '__main__':
             if (list_["completed"]) is True:
                 true += 1
                 tittles.append(list_['title'])
-    print("Employee {} is done with: tasks({}/{})".format(
+    print("Employee {} is done with tasks({}/{}):".format(
         user.json().get('name'), true, tasks))
     for tittle in tittles:
         print("\t " + tittle)
