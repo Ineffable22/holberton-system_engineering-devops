@@ -5,13 +5,14 @@ import requests
 from sys import argv
 
 if __name__ == '__main__':
-#    try:
+    # try:
     ID = argv[1]
-#    except IndexError:
-#        print("Insert Index")
-#        exit(-1)
+    # except IndexError:
+    # print("Insert Index")
+    # exit(-1)
     todo = requests.get('https://jsonplaceholder.typicode.com/todos')
-    user = requests.get('https://jsonplaceholder.typicode.com/users/{}'.format(ID))
+    user = requests.get('https://jsonplaceholder.typicode.com/users/{}'
+                        .format(ID))
     tasks = 0
     true = 0
     tittles = []
@@ -21,7 +22,7 @@ if __name__ == '__main__':
             if (list_["completed"]) is True:
                 true += 1
                 tittles.append(list_['title'])
-    print("Employee {} is done with tasks({}/{}):".format(
-        user.json().get('name'), true, tasks))
+    print("Employee {} is done with tasks({}/{}):"
+          .format(user.json().get('name'), true, tasks))
     for tittle in tittles:
         print("\t " + tittle)
