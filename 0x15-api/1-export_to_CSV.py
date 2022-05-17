@@ -24,9 +24,7 @@ def Rest_API():
     user = requests.get('https://jsonplaceholder.typicode.com/users/{}'
                         .format(ID))
 
-    # variables
     username = user.json().get('username')
-    datafile = ""
 
     # Print
     with open("{}.csv".format(ID), "w") as fo:
