@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ Using what you did in the task #0, extend your Python script
 to export data in the CSV format. """
+import csv
 import requests
 from sys import argv
 
@@ -25,15 +26,15 @@ def Rest_API():
 
     # variables
     username = user.json().get('username')
-    data_file = ""
+    datafile = ""
 
     # Print
-    for data in todo.json():
-        text = data.get("title")
-        task = data.get("completed")
-        datafile += '"{}", "{}", "{}", "{}"\n'.format(ID, username, task, text)
     with open("{}.csv".format(ID), "w") as fo:
-        fo.write(datafile)
+        writer = csv.writer(fo, quoting=csv.QUOTE_ALL)
+        for data in todo.json():
+            text = data.get("title")
+            task = data.get("completed")
+            writer.writerow([ID, username, task, text])
 
 
 if __name__ == '__main__':
