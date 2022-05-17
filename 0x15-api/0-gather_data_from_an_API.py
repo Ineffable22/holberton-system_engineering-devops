@@ -4,18 +4,29 @@
 import requests
 from sys import argv
 
-if __name__ == '__main__':
-    ID = argv[1]
+
+def Rest_API():
+    # Validates if argument is integer and has index
+    try:
+        ID = int(argv[1])
+    except ValueError:
+        print("Value Error")
+        exit()
+    except IndexError:
+        print("Index Error")
+        exit()
+
+    # Get Method
     todo = requests.get('https://jsonplaceholder.typicode.com/todos')
     user = requests.get('https://jsonplaceholder.typicode.com/users/{}'
                         .format(ID))
-    name = None
+
     name = user.json().get('name')
     tasks = 0
     true = 0
     tittles = []
     for list_ in todo.json():
-        if list_.get('userId') == int(ID):
+        if list_.get('userId') == ID:
             tasks += 1
             if (list_.get('completed')) is True:
                 true += 1
@@ -24,3 +35,7 @@ if __name__ == '__main__':
           .format(name, true, tasks))
     for tittle in tittles:
         print("\t {}".format(tittle))
+
+
+if __name__ == '__main__':
+    Rest_API()
