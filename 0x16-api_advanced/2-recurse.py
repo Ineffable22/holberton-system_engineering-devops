@@ -12,7 +12,7 @@ def recurse(subreddit):
         subreddit: Account to search
     """
     if subreddit is None or type(subreddit) is not str:
-        return 0
+        return None
     url = 'https://www.reddit.com/r/{}/hot.json?limit=100'.format(subreddit)
     User_Agent = 'AgentMEGO'
     header = {'User-Agent': User_Agent}
