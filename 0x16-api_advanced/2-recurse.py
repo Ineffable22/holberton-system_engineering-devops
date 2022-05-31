@@ -4,7 +4,12 @@ import requests
 
 
 def f_after(subreddit, hot_list=[], after=""):
-    """Recursive funtion find to length of hot_list"""
+    """Recursive function find to length of hot_list
+    Args:
+        subreddit: Account to search
+        hot_list: hot list of Reddit
+        after: next page of API
+    """
     url = 'https://www.reddit.com/r/{}/hot.json?limit=100'.format(subreddit)
     if after is not None:
         with requests.Session() as res:
