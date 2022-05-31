@@ -3,7 +3,23 @@
 import requests
 
 
-def recurse(subreddit):
+def f_after(subreddit, hot_list=[], after=""):
+    """Recursive funtion find to length of hot_list"""
+    url = 'https://www.reddit.com/r/{}/hot.json?limit=100'.format(subreddit)
+    if after is not None:
+        with requests.Session() as res:
+            data = res.get(url,
+                           headers={'User-Agent': 'AgentMEGO'},
+                           params={'after': after})
+            if data.status_code != 200:
+                return None
+            after = data.json().get('data').get('after')
+        hot_list += data.json().get('data').get('children')
+        f_after(subreddit, hot_list, after)
+    return (hot_list)
+
+
+def recurse(subreddit, hot_list=[]):
     """Returns a list containing the titles of all hot articles for
     a given subreddit. If no results are found for the given subreddit,
     the function should return None.
@@ -13,17 +29,5 @@ def recurse(subreddit):
     """
     if subreddit is None or type(subreddit) is not str:
         return None
-    url = 'https://www.reddit.com/r/{}/hot.json?limit=100'.format(subreddit)
-    User_Agent = 'AgentMEGO'
-    header = {'User-Agent': User_Agent}
-    after = ""
-    total = []
-    while(after is not None):
-        with requests.Session() as res:
-            data = res.get(url, headers=header, params={'after': after})
-            if data.status_code != 200:
-                print(None)
-                return
-            after = data.json().get('data').get('after')
-        total += data.json().get('data').get('children')
-    return (total)
+
+    return f_after(subreddit, hot_list, "")
