@@ -8,14 +8,14 @@ import requests
 import re
 
 
-def f_after(subreddit, hot_list="", after=""):
+def f_after(subreddit, hot_list, after=""):
     """Recursive function find to length of hot_list
     Args:
         subreddit: Account to search
         hot_list: hot list of Reddit
         after: next page of API
     """
-    url = 'https://www.reddit.com/r/{}/hot.json'.format(subreddit)
+    url = 'https://www.reddit.com/r/{}/hot.json?limit=100'.format(subreddit)
     if after is not None:
         data = requests.get(url,
                             headers={'User-Agent': 'AgentMEGO'},
@@ -23,10 +23,9 @@ def f_after(subreddit, hot_list="", after=""):
         if data.status_code != 200:
             return None
         after = data.json().get('data').get('after')
-        hot_list += " ".join([
-            i.get('data').get('title')
-            for i in data.json().get('data').get('children')
-        ]) + " "
+        JSON = data.json().get('data').get('children')
+        for value in JSON:
+            hot_list.append(value.get('data').get('title'))
         return f_after(subreddit, hot_list, after)
     return (hot_list)
 
@@ -44,9 +43,13 @@ def count_words(subreddit, word_list):
     if word_list is None:
         return None
 
-    data = f_after(subreddit, "", "")
+    data = f_after(subreddit, [], "")
+    data = " ".join(data)
+    data = data.split(" ")
+
     data_list = {}
     num = 0
+
     for i in word_list:
         search = [char for char in i]
         re_search = ""
@@ -55,13 +58,15 @@ def count_words(subreddit, word_list):
                 re_search += "[{}{}]".format(word.lower(), word.upper())
             else:
                 re_search += word
-        text = re.compile(re_search + " ")
+        for val in data:
+            text = re.compile(re_search)
+            if text.findall(val) != []:
+                num += 1
         i = i.lower()
         if i in data_list.keys():
-            num = len(text.findall(data)) + data_list[i]
+            data_list[i] = data_list[i] + num
         else:
-            num = len(text.findall(data))
-        data_list[i] = num
+            data_list[i] = num
         num = 0
 
     """
@@ -112,6 +117,7 @@ def count_words(subreddit, word_list):
 
     for a, b in newnew.items():
         print("{}: {}".format(a, b))
+
     """
 
     list_values = []
