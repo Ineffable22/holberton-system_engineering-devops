@@ -103,11 +103,13 @@ def count_words(subreddit=None, word_list=None):
             c1 = ord(char1[x])
             c2 = ord(char2[x])
             c3 = 0
-            while (c1 == c2 and c1 and c2):
-                if c1 > c2:
+            while (c1 and c2):
+                if c1 < c2:
                     c3 = 0
-                elif c1 < c2:
+                    break
+                elif c1 > c2:
                     c3 = 1
+                    break
                 x += 1
             if c3 == 0:
                 del newnew[tmp_key]
