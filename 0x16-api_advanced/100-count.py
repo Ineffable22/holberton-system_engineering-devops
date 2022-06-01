@@ -54,7 +54,7 @@ def count_words(subreddit, word_list):
                 re_search += "[{}{}]".format(word.lower(), word.upper())
             else:
                 re_search += word
-        text = re.compile('\\W' + re_search + '\\W')
+        text = re.compile('[ ]' + re_search + '[ ]')
         i = i.lower()
         num += len(text.findall(data))
         data_list[i] = num
