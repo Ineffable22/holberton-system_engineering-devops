@@ -37,10 +37,6 @@ def count_words(subreddit, word_list):
     Args:
         subreddit: Account to search
     """
-    if subreddit is None or type(subreddit) is not str:
-        return None
-    if word_list is None:
-        return None
 
     data = f_after(subreddit, [], "")
     data = " ".join(data)
@@ -113,59 +109,3 @@ def count_words(subreddit, word_list):
 
     for a, b in newnew.items():
         print("{}: {}".format(a, b))
-
-    """
-    list_values = []
-    for value in data_list.values():
-        list_values.append(value)
-
-    list_values.sort()
-    list_values.reverse()
-
-    new_data = {}
-
-    for n in range(len(list_values)):
-        for key, value in data_list.items():
-            if value == list_values[n]:
-                new_data[key] = value
-
-    tmp_key = ""
-    tmp_value = 0
-    tmp = []
-    char1 = []
-    char2 = []
-    x = 0
-    newnew = {}
-    for key, value in new_data.items():
-        if value == 0:
-            continue
-        newnew[key] = value
-        if value == tmp_value:
-            char1 = [char for char in key]
-            char2 = [charr for charr in tmp_key]
-            c1 = ord(char1[x])
-            c2 = ord(char2[x])
-            c3 = 0
-            while (c1 and c2):
-                c1 = ord(char1[x])
-                c2 = ord(char2[x])
-                if c1 < c2:
-                    c3 = 0
-                    break
-                elif c1 > c2:
-                    c3 = 1
-                    break
-                x += 1
-            if c3 == 0:
-                del newnew[tmp_key]
-                newnew[key] = value
-                newnew[tmp_key] = tmp_value
-                tmp_key = tmp_key
-                tmp_value = tmp_value
-                continue
-        tmp_key = key
-        tmp_value = value
-
-    for a, b in newnew.items():
-        print("{}: {}".format(a, b))
-    """
