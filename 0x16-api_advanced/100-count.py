@@ -29,6 +29,11 @@ def f_after(subreddit, hot_list, after=""):
     return (hot_list)
 
 
+def sort_dict_by_value(d, reverse=False):
+    return dict(sorted(
+        d.items(), key=lambda x: x[1], reverse=reverse))
+
+
 def count_words(subreddit, word_list):
     """Returns a list containing the titles of all hot articles for
     a given subreddit. If no results are found for the given subreddit,
@@ -37,6 +42,8 @@ def count_words(subreddit, word_list):
     Args:
         subreddit: Account to search
     """
+    if subreddit is None or type(subreddit) is not str:
+        return None
 
     data = f_after(subreddit, [], "")
     data = " ".join(data)
@@ -72,12 +79,12 @@ def count_words(subreddit, word_list):
     new_data = data_list
     tmp_key = ""
     tmp_value = 0
-    tmp = []
     char1 = []
     char2 = []
     x = 0
     newnew = {}
-    for key, value in sorted(new_data.items()):
+    new_data = sort_dict_by_value(new_data, True)
+    for key, value in new_data.items():
         if value == 0:
             continue
         newnew[key] = value
