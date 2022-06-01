@@ -68,15 +68,8 @@ def count_words(subreddit, word_list):
         else:
             data_list[i] = num
         num = 0
-    """
-    new_dict = ({k: v for k, v in sorted(data_list.items(),
-                                         key=lambda item: item[1])})
 
-    for a, b in new_dict.items():
-        if b != 0:
-            print("{}: {}".format(a, b))
-
-    new_data = new_dict
+    new_data = data_list
     tmp_key = ""
     tmp_value = 0
     tmp = []
@@ -84,7 +77,7 @@ def count_words(subreddit, word_list):
     char2 = []
     x = 0
     newnew = {}
-    for key, value in new_data.items():
+    for key, value in sorted(new_data.items()):
         if value == 0:
             continue
         newnew[key] = value
@@ -114,11 +107,12 @@ def count_words(subreddit, word_list):
         tmp_key = key
         tmp_value = value
 
+        
     for a, b in newnew.items():
         print("{}: {}".format(a, b))
 
-    """
 
+    """
     list_values = []
     for value in data_list.values():
         list_values.append(value)
@@ -172,3 +166,4 @@ def count_words(subreddit, word_list):
 
     for a, b in newnew.items():
         print("{}: {}".format(a, b))
+    """
