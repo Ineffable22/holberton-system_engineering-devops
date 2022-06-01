@@ -5,7 +5,6 @@ delimited by spaces. Javascript should count as javascript,
 but java should not)
 """
 import requests
-import re
 
 
 def f_after(subreddit, hot_list, after=""):
@@ -51,6 +50,7 @@ def count_words(subreddit, word_list):
     num = 0
 
     for i in word_list:
+        """
         search = [char for char in i]
         re_search = ""
         for word in search:
@@ -59,10 +59,14 @@ def count_words(subreddit, word_list):
             else:
                 re_search += word
         for val in data:
-            text = re.compile(re_search)
+            text = re.compile("\\W" + re_search + "\\W")
             if text.findall(val) != []:
+        num += 1
+        """
+        for val in data:
+            i = i.lower()
+            if val.lower() == i:
                 num += 1
-        i = i.lower()
         if i in data_list.keys():
             data_list[i] = data_list[i] + num
         else:
@@ -107,10 +111,8 @@ def count_words(subreddit, word_list):
         tmp_key = key
         tmp_value = value
 
-        
     for a, b in newnew.items():
         print("{}: {}".format(a, b))
-
 
     """
     list_values = []
