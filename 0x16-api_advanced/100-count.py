@@ -15,13 +15,12 @@ def f_after(subreddit, hot_list="", after=""):
         hot_list: hot list of Reddit
         after: next page of API
     """
-    url = 'https://www.reddit.com/r/{}/hot.json?limit=100'.format(subreddit)
+    url = 'https://www.reddit.com/r/{}/hot.json'.format(subreddit)
     if after is not None:
         with requests.Session() as res:
             data = res.get(url,
                            headers={'User-Agent': 'AgentMEGO'},
-                           params={'after': after},
-                           allow_redirects=False)
+                           params={'after': after})
             if data.status_code != 200:
                 return None
             after = data.json().get('data').get('after')
