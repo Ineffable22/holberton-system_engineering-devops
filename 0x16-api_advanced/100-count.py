@@ -20,7 +20,8 @@ def f_after(subreddit, hot_list="", after=""):
         with requests.Session() as res:
             data = res.get(url,
                            headers={'User-Agent': 'AgentMEGO'},
-                           params={'after': after})
+                           params={'after': after},
+                           allow_redirects=False)
             if data.status_code != 200:
                 return None
             after = data.json().get('data').get('after')
