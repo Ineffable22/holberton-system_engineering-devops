@@ -17,13 +17,12 @@ def f_after(subreddit, hot_list="", after=""):
     """
     url = 'https://www.reddit.com/r/{}/hot.json'.format(subreddit)
     if after is not None:
-        with requests.Session() as res:
-            data = res.get(url,
-                           headers={'User-Agent': 'AgentMEGO'},
-                           params={'after': after})
-            if data.status_code != 200:
-                return None
-            after = data.json().get('data').get('after')
+        data = requests.get(url,
+                            headers={'User-Agent': 'AgentMEGO'},
+                            params={'after': after})
+        if data.status_code != 200:
+            return None
+        after = data.json().get('data').get('after')
         hot_list += " ".join([
             i.get('data').get('title')
             for i in data.json().get('data').get('children')
