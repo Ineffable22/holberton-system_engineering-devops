@@ -68,7 +68,6 @@ def count_words(subreddit, word_list):
         else:
             data_list[i] = num
         num = 0
-
     """
     new_dict = ({k: v for k, v in sorted(data_list.items(),
                                          key=lambda item: item[1])})
