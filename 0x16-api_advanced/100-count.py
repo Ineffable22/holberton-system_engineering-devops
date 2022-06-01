@@ -32,7 +32,7 @@ def f_after(subreddit, hot_list="", after=""):
     return (hot_list)
 
 
-def count_words(subreddit, word_list):
+def count_words(subreddit=None, word_list=None):
     """Returns a list containing the titles of all hot articles for
     a given subreddit. If no results are found for the given subreddit,
     the function should return None.
@@ -41,6 +41,8 @@ def count_words(subreddit, word_list):
         subreddit: Account to search
     """
     if subreddit is None or type(subreddit) is not str:
+        return None
+    if word_list is None:
         return None
 
     data = f_after(subreddit, "", "")
