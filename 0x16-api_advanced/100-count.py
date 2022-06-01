@@ -24,11 +24,11 @@ def f_after(subreddit, hot_list="", after=""):
             if data.status_code != 200:
                 return None
             after = data.json().get('data').get('after')
-            hot_list += " ".join([
-                i.get('data').get('title')
-                for i in data.json().get('data').get('children')
-            ]) + " "
-            return f_after(subreddit, hot_list, after)
+        hot_list += " ".join([
+            i.get('data').get('title')
+            for i in data.json().get('data').get('children')
+        ]) + " "
+        return f_after(subreddit, hot_list, after)
     return (hot_list)
 
 
