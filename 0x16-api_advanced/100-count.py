@@ -62,13 +62,13 @@ def count_words(subreddit, word_list):
             num = len(text.findall(data))
         data_list[i] = num
         num = 0
-
+    """
     new_dict = ({k: v for k, v in sorted(data_list.items(),
                                          key=lambda item: item[1])})
     for a, b in new_dict.items():
         if b != 0:
-            print("{}: {}".format(a, b))
-    """
+    print("{}: {}".format(a, b))"""
+
     list_values = []
     for value in data_list.values():
         list_values.append(value)
@@ -118,4 +118,3 @@ def count_words(subreddit, word_list):
 
     for a, b in newnew.items():
         print("{}: {}".format(a, b))
-    """
