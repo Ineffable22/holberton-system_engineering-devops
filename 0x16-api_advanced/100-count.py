@@ -33,7 +33,7 @@ def f_after(subreddit, hot_list="", after=""):
     return (hot_list)
 
 
-def count_words(subreddit=None, word_list=None):
+def count_words(subreddit, word_list):
     """Returns a list containing the titles of all hot articles for
     a given subreddit. If no results are found for the given subreddit,
     the function should return None.
@@ -65,12 +65,56 @@ def count_words(subreddit=None, word_list=None):
             num = len(text.findall(data))
         data_list[i] = num
         num = 0
+
     """
     new_dict = ({k: v for k, v in sorted(data_list.items(),
                                          key=lambda item: item[1])})
+
     for a, b in new_dict.items():
         if b != 0:
-    print("{}: {}".format(a, b))"""
+            print("{}: {}".format(a, b))
+
+    new_data = new_dict
+    tmp_key = ""
+    tmp_value = 0
+    tmp = []
+    char1 = []
+    char2 = []
+    x = 0
+    newnew = {}
+    for key, value in new_data.items():
+        if value == 0:
+            continue
+        newnew[key] = value
+        if value == tmp_value:
+            char1 = [char for char in key]
+            char2 = [charr for charr in tmp_key]
+            c1 = ord(char1[x])
+            c2 = ord(char2[x])
+            c3 = 0
+            while (c1 and c2):
+                c1 = ord(char1[x])
+                c2 = ord(char2[x])
+                if c1 < c2:
+                    c3 = 0
+                    break
+                elif c1 > c2:
+                    c3 = 1
+                    break
+                x += 1
+            if c3 == 0:
+                del newnew[tmp_key]
+                newnew[key] = value
+                newnew[tmp_key] = tmp_value
+                tmp_key = tmp_key
+                tmp_value = tmp_value
+                continue
+        tmp_key = key
+        tmp_value = value
+
+    for a, b in newnew.items():
+        print("{}: {}".format(a, b))
+    """
 
     list_values = []
     for value in data_list.values():
@@ -104,6 +148,8 @@ def count_words(subreddit=None, word_list=None):
             c2 = ord(char2[x])
             c3 = 0
             while (c1 and c2):
+                c1 = ord(char1[x])
+                c2 = ord(char2[x])
                 if c1 < c2:
                     c3 = 0
                     break
