@@ -1,5 +1,5 @@
 # Repair error of configuration
 exec { 'repair_server':
   provider => shell,
-  command  => 'sed -i "s/class-wp-error.phpp/class-wp-error.php/g" /var/www/html/wp-settings.php',
+  command  => 'sudo sed -i "s/class-wp-error.phpp/class-wp-error.php/g" /var/www/html/wp-settings.php',
 }
